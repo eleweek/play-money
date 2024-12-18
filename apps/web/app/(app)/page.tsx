@@ -4,9 +4,7 @@ import React from 'react'
 import { getLists, getMarkets } from '@play-money/api-helpers/client'
 import { SiteActivity } from '@play-money/finance/components/SiteActivity'
 import { MarketProbabilityDetail } from '@play-money/markets/components/MarketProbabilityDetail'
-import { UserQuestCard } from '@play-money/quests/components/UserQuestCard'
-import { SidebarReferralAlert } from '@play-money/referrals/components/SidebarReferralAlert'
-import { SignedInReferralAlert } from '@play-money/referrals/components/SignedInReferralAlert'
+// import { SignedInReferralAlert } from '@play-money/referrals/components/SignedInReferralAlert'
 import { formatDistanceToNowShort } from '@play-money/ui'
 import { UserAvatar } from '@play-money/ui/UserAvatar'
 import { Button } from '@play-money/ui/button'
@@ -164,15 +162,10 @@ export default async function AppPage() {
       </div>
 
       <div className="space-y-8 md:w-80">
-        <SidebarReferralAlert />
-        <UserQuestCard />
-
         <div>
           <div className="pb-2 text-xs font-semibold uppercase text-muted-foreground">Activity</div>
           <SiteActivity />
         </div>
-
-        <SignedInReferralAlert />
       </div>
     </div>
   )

@@ -14,12 +14,12 @@ const ONE_HOUR = SIXTY_SECONDS * 60
 
 export function useRecentTrades() {
   return useSWR<{ data: Array<TransactionWithEntries> }>(`/v1/transactions?transactionType=TRADE_BUY,TRADE_SELL`, {
-    refreshInterval: FIVE_MINUTES,
+    refreshInterval: SIXTY_SECONDS,
   })
 }
 
 export function useSiteActivity() {
-  return useSWR<{ data: Array<MarketActivity> }>(`/v1/activity`, { refreshInterval: FIVE_MINUTES })
+  return useSWR<{ data: Array<MarketActivity> }>(`/v1/activity`, { refreshInterval: SIXTY_SECONDS })
 }
 
 export function MARKET_BALANCE_PATH(marketId: string) {
@@ -73,7 +73,7 @@ export function useMarketGraph({ marketId }: { marketId: string }) {
         probability: number
       }>
     }>
-  }>(MARKET_GRAPH_PATH(marketId), { refreshInterval: FIVE_MINUTES })
+  }>(MARKET_GRAPH_PATH(marketId), { refreshInterval: SIXTY_SECONDS })
 }
 
 export function LIST_GRAPH_PATH(listId: string) {
@@ -102,7 +102,7 @@ export const MY_NOTIFICATIONS_PATH = '/v1/users/me/notifications'
 export function useNotifications({ skip = false }: { skip?: boolean }) {
   return useSWR<{ data: { unreadCount: number; notifications: Array<NotificationGroupWithLastNotification> } }>(
     !skip ? MY_NOTIFICATIONS_PATH : null,
-    { refreshInterval: FIVE_MINUTES }
+    { refreshInterval: SIXTY_SECONDS }
   )
 }
 
@@ -124,7 +124,7 @@ export function useUserGraph({ userId }: { userId: string }) {
       startAt: Date
       endAt: Date
     }>
-  }>(`/v1/users/${userId}/graph`, { refreshInterval: FIVE_MINUTES })
+  }>(`/v1/users/${userId}/graph`, { refreshInterval: SIXTY_SECONDS })
 }
 
 export function useTransparencyStatsUsers() {

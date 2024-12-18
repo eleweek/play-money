@@ -2,7 +2,6 @@ import { MenuIcon } from 'lucide-react'
 import Link from 'next/link'
 import { getMyBalance } from '@play-money/api-helpers/client'
 import { NotificationDropdown } from '@play-money/notifications/components/NotificationDropdown'
-import { UserQuestCard } from '@play-money/quests/components/UserQuestCard'
 import { GlobalSearchTriggerLink } from '@play-money/search/components/GlobalSearchTriggerLink'
 import { Button } from '@play-money/ui/button'
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from '@play-money/ui/sheet'
@@ -21,11 +20,11 @@ function MainNav({
           Questions
         </Link>
       )}
-      {renderItemWrap(
+      {/* {renderItemWrap(
         <Link className="font-medium transition-colors hover:text-primary" href="/create-post">
           Create Question
         </Link>
-      )}
+      )} */}
       {renderItemWrap(
         <Link className="font-medium transition-colors hover:text-primary" href="/leaderboard">
           Leaderboard
@@ -68,7 +67,6 @@ export default async function AppLayout({ children }: { children: React.ReactNod
                   renderItemWrap={(child) => <SheetClose asChild>{child}</SheetClose>}
                 />
               </div>
-              <UserQuestCard />
             </SheetContent>
           </Sheet>
           <Link className="flex items-center gap-2" href="/">
