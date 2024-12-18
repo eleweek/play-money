@@ -11,7 +11,7 @@ function CustomizedXAxisTick({ x, y, payload }: { x: number; y: number; payload:
   return (
     <g transform={`translate(${x},${y})`}>
       <text x={0} y={0} dy={5} dx={-4} textAnchor="end" className="fill-muted-foreground/50">
-        {format(payload.value, 'MMM d')}
+        {format(payload.value, 'MMM d HH:mm')}
       </text>
     </g>
   )
@@ -31,6 +31,7 @@ function CustomizedYAxisTick({ x, y, payload }: { x: number; y: number; payload:
 
 export function MarketGraph({ market, activeOptionId }: { market: ExtendedMarket; activeOptionId: string }) {
   const { data: graph } = useMarketGraph({ marketId: market.id })
+  console.log('Graph', graph)
   const createdOrderOptions = market.options.sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   )
@@ -47,7 +48,8 @@ export function MarketGraph({ market, activeOptionId }: { market: ExtendedMarket
                 if (data) {
                   return (
                     <Card className="p-1 font-mono text-xs">
-                      <div>{format(data.startAt, 'MMM d, yyyy')}</div>
+                      <div>{format(data.startAt, 'MMM d, yyyy HH:mm')}</div>
+
                       {createdOrderOptions.map((option, i) => {
                         const dataOption = data.options.find(
                           (o: { id: string; proability: number }) => o.id === option.id
@@ -72,7 +74,7 @@ export function MarketGraph({ market, activeOptionId }: { market: ExtendedMarket
               className="font-mono text-[10px] uppercase"
               minTickGap={80}
               tick={CustomizedXAxisTick}
-              tickFormatter={(value) => format(value, 'MMM d')}
+              tickFormatter={(value) => format(value, 'MMM d, HH:mm')}
             />
             <YAxis
               type="number"

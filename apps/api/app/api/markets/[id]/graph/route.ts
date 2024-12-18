@@ -16,7 +16,7 @@ export async function GET(
 
     const data = await getMarketTransactionsTimeSeries({
       marketId: id,
-      tickInterval: 1,
+      tickInterval: 1 / 60.0,
       endAt: market.resolvedAt || new Date(),
       excludeTransactionTypes: ['TRADE_LOSS', 'TRADE_WIN', 'LIQUIDITY_RETURNED'],
     })
