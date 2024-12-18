@@ -53,27 +53,33 @@ export function MarketPageLayout({
     }
   }
 
+  const irl = pathname.endsWith('/irl')
+
   return (
     <SelectedItemsProvider initialValue={[createdOrderOptions[0]?.id]}>
       <SidebarProvider>
         <main className="mx-auto flex w-full max-w-screen-lg flex-1 flex-col gap-8 md:flex-row">
           <div className="flex-1 space-y-2">
-            <Tabs defaultValue={initialTab} className="w-[400px]" onValueChange={handleTabChange}>
-              <TabsList>
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="comments">Comments</TabsTrigger>
-                <TabsTrigger value="positions">Positions</TabsTrigger>
-                <TabsTrigger value="trades">Trades</TabsTrigger>
-                <TabsTrigger value="liquidity">Liquidity</TabsTrigger>
-              </TabsList>
-            </Tabs>
+            {!irl && (
+              <Tabs defaultValue={initialTab} className="w-[400px]" onValueChange={handleTabChange}>
+                <TabsList>
+                  <TabsTrigger value="overview">Overview</TabsTrigger>
+                  <TabsTrigger value="comments">Comments</TabsTrigger>
+                  <TabsTrigger value="positions">Positions</TabsTrigger>
+                  <TabsTrigger value="trades">Trades</TabsTrigger>
+                  <TabsTrigger value="liquidity">Liquidity</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            )}
             {children}
           </div>
 
-          <div className="w-full space-y-8 md:w-80">
-            <SidebarReferralAlert />
-            <MarketPageSidebar market={market} onTradeComplete={onRevalidate} />
-          </div>
+          {!irl && (
+            <div className="w-full space-y-8 md:w-80">
+              <SidebarReferralAlert />
+              <MarketPageSidebar market={market} onTradeComplete={onRevalidate} />
+            </div>
+          )}
         </main>
       </SidebarProvider>
     </SelectedItemsProvider>
