@@ -11,6 +11,21 @@ import { ExtendedMarket } from '../types'
 import { MarketPageSidebar } from './MarketPageSidebar'
 import { SidebarProvider } from './SidebarContext'
 
+export function QRCode(props: { url: string; className?: string; width?: number; height?: number }) {
+  const { url, className, width = 200, height = 200 } = props
+
+  // url-encode the url
+  const urlEncoded = encodeURIComponent(url)
+
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${width}x${height}&data=${urlEncoded}`
+
+  return (
+    <div className="aspect-square">
+      <img src={qrUrl} width={width} height={height} className={className} alt={`QR code to ${urlEncoded}`} />
+    </div>
+  )
+}
+
 export function MarketPageLayout({
   market,
   children,
@@ -74,10 +89,14 @@ export function MarketPageLayout({
             {children}
           </div>
 
-          {!irl && (
+          {!irl ? (
             <div className="w-full space-y-8 md:w-80">
               <SidebarReferralAlert />
               <MarketPageSidebar market={market} onTradeComplete={onRevalidate} />
+            </div>
+          ) : (
+            <div className="w-full space-y-8 md:w-80">
+              <QRCode url={`${window.location.origin}/questions/${market.id}/${market.slug}`} />
             </div>
           )}
         </main>
