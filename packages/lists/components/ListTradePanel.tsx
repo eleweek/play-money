@@ -1,16 +1,18 @@
 'use client'
 
 import { CircleOffIcon } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import { mutate } from 'swr'
 import { LIST_BALANCE_PATH, MY_BALANCE_PATH, useListBalance } from '@play-money/api-helpers/client/hooks'
 import { MarketBalanceBreakdown } from '@play-money/markets/components/MarketBalanceBreakdown'
 import { MarketBuyForm } from '@play-money/markets/components/MarketBuyForm'
 import { MarketLeaderboardPanel } from '@play-money/markets/components/MarketLeaderboardPanel'
+import { QRCode } from '@play-money/markets/components/MarketPageLayout'
 import { MarketSellForm } from '@play-money/markets/components/MarketSellForm'
 import { useSidebar } from '@play-money/markets/components/SidebarContext'
 import { isMarketCanceled, isMarketResolved, isMarketTradable } from '@play-money/markets/rules'
-import { useSelectedItems } from '@play-money/ui'
+import { useSearchParam, useSelectedItems } from '@play-money/ui'
 import { Card, CardContent, CardHeader } from '@play-money/ui/card'
 import { Combobox } from '@play-money/ui/combobox'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@play-money/ui/tabs'
@@ -41,9 +43,16 @@ export function ListTradePanel({ list, onTradeComplete }: { list: ExtendedList; 
     .reduce((sum, position) => sum + position.total, 0)
   const positionsSum = (balance?.userPositions ?? []).reduce((sum, position) => sum + position.value, 0)
   const total = (primaryBalanceSum || 0) + positionsSum
+  const searchParams = useSearchParams()
+  const isQr = searchParams.get('qr')
 
   return (
     <div className="space-y-4">
+      {isQr && (
+        <div className="md:w-120 w-full space-y-8">
+          <QRCode url={`${process.env.NEXT_PUBLIC_WEB_URL}/list/${list.id}/${list.slug}`} />
+        </div>
+      )}
       {isCanceled ? (
         <Card className="flex flex-col items-center justify-center gap-4 p-4 sm:h-64">
           <CircleOffIcon className="size-8 stroke-[1.5px] text-muted-foreground" />
