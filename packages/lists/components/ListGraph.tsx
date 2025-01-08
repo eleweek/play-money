@@ -44,7 +44,7 @@ export function ListGraph({ list, activeOptionId }: { list: ExtendedList; active
                 if (data) {
                   return (
                     <Card className="p-1 font-mono text-xs">
-                      <div>{format(data.startAt, 'MMM d, yyyy')}</div>
+                      <div>{format(data.startAt, 'MMM d, yyyy HH:mm')}</div>
                       {list.markets.map((market, i) => {
                         const dataOption = data.markets.find(
                           (o: { id: string; proability: number }) => o.id === market.market.id

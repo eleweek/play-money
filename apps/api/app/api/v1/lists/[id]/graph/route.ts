@@ -16,7 +16,7 @@ export async function GET(
 
     const data = await getListTransactionsTimeSeries({
       listId: id,
-      tickInterval: 1,
+      tickInterval: 1 / 60.0,
       endAt: new Date(),
       excludeTransactionTypes: ['TRADE_LOSS', 'TRADE_WIN', 'LIQUIDITY_RETURNED'],
     })
