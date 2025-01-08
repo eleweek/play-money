@@ -11,5 +11,5 @@ export default async function AppPostsSlugPage({ params }: { params: { marketId:
     revalidateTag(`market:${params.marketId}`)
   }
 
-  return <MarketIrlPage market={market} onRevalidate={handleRevalidate} renderActivitiy={null} />
+  return <MarketIrlPage market={market.data} onRevalidate={handleRevalidate} renderActivitiy={null} />
 }

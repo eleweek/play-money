@@ -96,7 +96,7 @@ export function MarketPageLayout({
             </div>
           ) : (
             <div className="w-full space-y-8 md:w-80">
-              <QRCode url={`${window.location.origin}/questions/${market.id}/${market.slug}`} />
+              <QRCode url={`${process.env.NEXT_PUBLIC_WEB_URL}/questions/${market.id}/${market.slug}`} />
             </div>
           )}
         </main>
